@@ -1,2 +1,2 @@
 # parser
-simple parser for new site
+simple parser for news site
