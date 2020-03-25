@@ -37,29 +37,29 @@ def parse_article_links(main_url, articles, proxy):
             try:
                 data['title'].append(
                     article.a.text) # Append Title
-            except Exception as e:
-                data['title'].append(str(e))
+            except:
+                data['title'].append("")
 
             try:
                 data['link'].append(
                     main_url + article.a['href']) # Append Link
-            except Exception as e:
-                data['link'].append(str(e))
+            except:
+                data['link'].append("")
             
             try:
                 temp = parse_single_page(main_url + article.a['href'], proxy)
                 data['date'].append(temp[0]) # Append Date
                 data['text'].append(temp[1]) # Append Full text
-            except Exception as e:
-                data['date'], data['text'] = str(e)
+            except:
+                data['date'], data['text'] = ""
 
             try:
                 data['comments'].append(
                     article.find('span', class_='comm_num').text if article.find('span', class_='comm_num') else 0) # Append Comments if not None else 0
-            except Exception as e:
-                data['comments'].append(str(e))
+            except:
+                data['comments'].append("")
 
-
+                
     return data
 
 
@@ -97,7 +97,8 @@ if __name__ == "__main__":
         try: 
             proxy = {'http': ip, 'https': ip}
             parse('https://www.zakon.kz/news', proxy)
-            break
-
         except Exception as e:
-            print(str(e))
+            logger.error(str(e))
+        else:
+            logger.info("Parsing finished")
+            break
