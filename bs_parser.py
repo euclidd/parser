@@ -90,11 +90,13 @@ def parse(main_url, proxy):
 
 
 if __name__ == "__main__":
+    # Initialize logger 
     logger = logging.getLogger()
     logger.setLevel(logging.DEBUG)
     sh = logging.StreamHandler()
     logger.addHandler(sh)
-
+    
+    # Use proxies in case of ip restrictions
     ip_addrs = ['88.119.193.254:51242', '148.77.34.196:39175', '88.87.90.107:8080']
     for ip in ip_addrs:
         try: 
