@@ -16,18 +16,13 @@ def get_page(url, proxy):
 
 @retry(tries=3, delay=0.5)
 def parse_single_page(url, proxy):
-    try:
-        page = get_page(url, proxy)
-        soup = BeautifulSoup(page, 'lxml')
-        date = soup.find('span', class_='news_date').text
-        article = soup.find('div', id='initial_news_story')
-        text = " ".join([p.text for p in article.findAll('p')])
+    page = get_page(url, proxy)
+    soup = BeautifulSoup(page, 'lxml')
+    date = soup.find('span', class_='news_date').text
+    article = soup.find('div', id='initial_news_story')
+    text = " ".join([p.text for p in article.findAll('p')])
 
-        return date, text
-    
-    except Exception as e:
-
-        return str(e)
+    return date, text
 
 
 @retry(tries=3, delay=0.5)
